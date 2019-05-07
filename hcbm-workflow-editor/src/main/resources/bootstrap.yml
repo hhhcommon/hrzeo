@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: hzero-workflow-editor
+server:
+  port: 8170
+  context-path: /editor
+management:
+  port: 8171
+  security:
+    enabled: false
+feign:
+  hystrix:
+    enabled: true
+security:
+  basic:
+    enabled: false

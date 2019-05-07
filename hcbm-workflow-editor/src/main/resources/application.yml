@@ -1,0 +1,37 @@
+spring:
+  redis:
+    host: redis.hzero.org
+    port: 6379
+    database: 1
+  freemarker:
+    request-context-attribute: base  #req访问request
+    suffix: .html  #后缀名
+    content-type: text/html
+    cache: true #缓存配置
+    template-loader-path: classpath:/static/ #模板加载路径
+    charset: UTF-8
+    expose-request-attributes: true
+    settings:
+      auto_import: spring.ftl as spring
+
+
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
+    metadata-map:
+      CONTEXT: /editor
+      VERSION: 0.8.0
+      NODE_GROUP_ID: ${HZERO_NODE_GROUP_ID:0}
+      PRODUCT_CODE: ${HZERO_PRODUCT_CODE:DEFAULT}
+      PRODUCT_VERSION_CODE: ${HZERO_PRODUCT_VERSION_CODE:DEFAULT}
+      PRODUCT_ENV_CODE: ${HZERO_PRODUCT_ENV_CODE:DEFAULT}
+      SERVICE_VERSION_CODE: ${HZERO_SERVICE_VERSION_CODE:DEFAULT}
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://dev.hzero.org:8000/eureka/}
+    registryFetchIntervalSeconds: 10
+
+workflow:
+  engineUrl: ${HZERO_WORKFLOW_SERVICE_URL:http:/dev.hzero.org:8080/hwfl}

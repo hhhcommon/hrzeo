@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: hzero-report
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_report?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hcbm}
+    password: ${SPRING_DATASOURCE_PASSWORD:hcbm}
+  thymeleaf:
+      prefix: classpath:/templates/
+      suffix: .html
+      cache: false
+      content-type: text/html
+      enabled: true
+      encoding: UTF-8
+  redis:
+    host: redis.hzero.org
+    port: 6379
+    database: 1
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://dev.hzero.org:8000/eureka}
+
+choerodon:
+  resource:
+    pattern: /v1/*
+        
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:40000}
+ribbon:
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:40000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:3000}
+
+logging:
+  level:
+    org.apache.ibatis: ${LOGGING_LEVEL:debug}
+    io.choerodon: ${LOGGING_LEVEL:debug}
+    org.hzero: ${LOGGING_LEVEL:debug}
+
+hzero:
+  scheduler:
+    executor-code: HRPT_EXECUTOR
+  data:
+    permission:
+      db-owner: ${HZERO_DB_OWNER:}

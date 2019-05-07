@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: hzero-workflow
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_workflow?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hcbm}
+    password: ${SPRING_DATASOURCE_PASSWORD:hcbm}
+  redis:
+    host: redis.hzero.org
+    port: 6379
+    database: 1
+choerodon:
+  ldap:
+    userNameType: 0
+  devops:
+    message: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:40000}
+  stream:
+    queue:
+      enabled: false
+ribbon:
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:30000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:3000}
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration: # 数据库下划线转驼峰配置
+    mapUnderscoreToCamelCase: true
+
+hzero:
+  workflow:
+    hr-service-name: hzero-platform
+    activiti:
+      mail-server-host: ${HZERO_WORKFLOW_MAIL_HOST:stmp.163.com}
+      mail-server-port: ${HZERO_WORKFLOW_MAIL_PORT:25}
+      mail-server-username: ${HZERO_WORKFLOW_MAIL_USERNAME:hzero@163.com}
+      mail-server-password: ${HZERO_WORKFLOW_MAIL_PASSWORD:hzero}
+      database-type: ${DATABASE_TYPE:mysql}
+  lov:
+    sql:
+      enabled: true
+    value:
+      enabled: true
+logging:
+  level:
+    org.hzero.workflow.manager.mapper: ${LOGGING_LEVEL:debug}
+    org.activiti: ${LOGGING_LEVEL:debug}
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://dev.hzero.org:8000/eureka}

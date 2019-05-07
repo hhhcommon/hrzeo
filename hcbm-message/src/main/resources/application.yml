@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: hzero-message
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_message?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hcbm}
+    password: ${SPRING_DATASOURCE_PASSWORD:hcbm}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: 6379
+    database: ${SPRING_REDIS_DATABASE:1}
+
+feign:
+  hystrix:
+    enabled: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:40000}
+  devops-deploy-service:
+    execution:
+      isolation:
+        thread:
+          timeoutInMilliseconds: 5000
+  stream:
+    queue:
+      enabled: false
+
+ribbon:
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:30000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:3000}
+
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+mapper:
+  not-empty: true
+
+choerodon:
+  websocket:
+    max-redis-msg-listener-concurrency: 500
+    oauth-url: ${SECURITY_OAUTH2_USER_INFO_URI:http://dev.hzero.org:8080/oauth/api/user}
+    register-interval: 10000
+  resource:
+    pattern: /v1/*
+
+hzero:
+  lov:
+    sql:
+      enabled: true
+    value:
+      enabled: true
+  message:
+    message-redis-database: 1
+    sms:
+      fake-action: ${HZERO_SMS_FAKE:false}
+  data:
+    permission:
+      db-owner: ${HZERO_DB_OWNER:}
+  scheduler:
+    executor-code: HMSG_EXECUTOR
+
+logging:
+  level:
+    org.apache.ibatis: ${LOGGING_LEVEL:debug}
+    io.choerodon: ${LOGGING_LEVEL:debug}
+    org.hzero.boot.message.feign: ${LOGGING_LEVEL:debug}
+    org.hzero.message.infra.mapper: ${LOGGING_LEVEL:debug}
+    io.choerodon.websocket.controller: ${LOGGING_LEVEL:debug}

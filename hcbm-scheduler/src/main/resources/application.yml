@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: hzero-scheduler
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_scheduler?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hcbm}
+    password: ${SPRING_DATASOURCE_PASSWORD:hcbm}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: 6379
+    database: ${SPRING_REDIS_DATABASE:1}
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://dev.hzero.org:8000/eureka}
+
+
+logging:
+  level:
+    org.apache.ibatis: ${LOGGING_LEVEL:info}
+    io.choerodon: ${LOGGING_LEVEL:info}
+    org.hzero: ${LOGGING_LEVEL:info}
+    org.hzero.boot.platform.lov: ${LOGGING_LEVEL:error}
+
+hzero:
+  scheduler:
+    executor-code: HSDR_EXECUTOR
+  data:
+    permission:
+      db-owner: ${HZERO_DB_OWNER:}
+  lock:
+    pattern: single
+    single-server:
+      address: ${SPRING_REDIS_HOST:redis.hzero.org}
+      port: 6379
+      database: ${SPRING_REDIS_DATABASE:1}

@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: hzero-portal
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_portal?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hcbm}
+    password: ${SPRING_DATASOURCE_PASSWORD:hcbm}
+  freemarker:
+    request-context-attribute: request  #req访问request
+    suffix: .html  #后缀名
+    content-type: text/html
+    enabled: true
+    cache: true #缓存配置
+    template-loader-path: classpath:/templates/ #模板加载路径 按需配置
+    charset: UTF-8 #编码格式
+  mvc:
+    throw-exception-if-no-handler-found: true
+  redis:
+    host: redis.hzero.org
+    port: 6379
+    database: 1
+  resources: 
+    # 资源缓存时间，单位秒
+    cache-period: 604800
+    # 开启gzip压缩
+    chain.gzipped: true
+    # 启用缓存
+    chain.cache: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://dev.hzero.org:8000/eureka}
+
+
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 3000
+
+hzero:
+  oauth:
+    client-id: ${HZERO_OAUTH_CLIENT_ID:hzero-portal-dev}
+    client-secret: ${HZERO_OAUTH_CLIENT_SECRET:secret}
+    authorize-url: ${HZERO_OAUTH_AUTHORIZE_URL:http://dev.hzero.org/oauth/oauth/authorize}
+    redirect-url: ${HZERO_OAUTH_REDIRECT_URL:http://dev.hzero.org:8200}
+    workplace-url: ${HZERO_OAUTH_WORKPLACE_URL:http://dev.hzero.org/}
+  lov:
+    sql:
+      enabled: true
+    value:
+      enabled: true
+  gatewayUrl: ${HZERO_GATEWAY_URL:http://dev.hzero.org:8080}
+  data:
+    permission:
+      db-owner: ${HZERO_DB_OWNER:}
+  cache-value:
+    enable: true
+
+logging:
+  level:
+    org.apache.ibatis: ${LOGGING_LEVEL:debug}
+    io.choerodon: ${LOGGING_LEVEL:debug}
+    org.hzero: ${LOGGING_LEVEL:debug}

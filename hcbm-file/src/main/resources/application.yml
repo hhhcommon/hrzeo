@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: hzero-file
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_file?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hcbm}
+    password: ${SPRING_DATASOURCE_PASSWORD:hcbm}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: 6379
+    database: ${SPRING_REDIS_DATABASE:1}
+  http: 
+    multipart:
+      maxFileSize: 30MB
+      maxRequestSize: 30MB
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:40000}
+ribbon:
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:30000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:3000}
+
+hzero:
+  file:
+    max-capacity-size: 10240MB
+  data:
+    permission:
+      db-owner: ${HZERO_DB_OWNER:}
+
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+
+logging:
+  level:
+    org.apache.ibatis: ${LOGGING_LEVEL:debug}
+    io.choerodon: ${LOGGING_LEVEL:debug}
+    org.hzero: ${LOGGING_LEVEL:debug}
