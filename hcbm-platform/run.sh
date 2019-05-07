@@ -7,8 +7,8 @@ mvn clean package
 echo ">>> cd target"
 cd target
 
-JAR=service_name.jar
-MPORT=manager_port
+JAR=platform.jar
+MPORT=8100
 
 echo ">>> kill -9 $(jps -ml | grep $JAR | awk '{print $1}')"
 kill -9 $(jps -ml | grep $JAR | awk '{print $1}')
