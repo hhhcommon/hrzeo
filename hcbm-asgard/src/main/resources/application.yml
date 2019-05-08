@@ -2,9 +2,9 @@ spring:
   application:
     name: hzero-asgard
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_asgard?useUnicode=true&characterEncoding=utf-8&useSSL=false}
-    username: ${SPRING_DATASOURCE_USERNAME:hcbm}
-    password: ${SPRING_DATASOURCE_PASSWORD:hcbm}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hzero}
+    password: ${SPRING_DATASOURCE_PASSWORD:hzero}
   redis:
     host: ${SPRING_REDIS_HOST:redis.hzero.org}
     port: 6379
